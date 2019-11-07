@@ -44,10 +44,10 @@ class Filters extends \Magento\CatalogGraphQl\Model\Resolver\Layer\DataProvider\
     {
         $filtersData = [];
         /** @var AbstractFilter $filter */
-        $filtersDt = $this->filtersProvider->getFilters($layerType);
+        $filters = $this->filtersProvider->getFilters($layerType);
         $filterPositions = $this->filtersProvider->getFilterPositions();
 
-        foreach ($filtersDt as $filter) {
+        foreach ($filters as $filter) {
             if ($filter->getItemsCount()) {
                 $filterGroup = [
                     'name' => (string)$filter->getName(),
