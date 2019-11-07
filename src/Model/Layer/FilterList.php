@@ -8,7 +8,7 @@
  * @copyright   Copyright (c) 2018 Scandiweb, Ltd (https://scandiweb.com)
  */
 
-namespace ScandiPWA\CatalogGraphQl\Catalog\Model\Layer;
+namespace ScandiPWA\CatalogGraphQl\Model\Layer;
 
 class FilterList extends \Magento\Catalog\Model\Layer\FilterList
 {
@@ -20,16 +20,17 @@ class FilterList extends \Magento\Catalog\Model\Layer\FilterList
      */
     public function getFilters(\Magento\Catalog\Model\Layer $layer)
     {
+        $positions = [];
         if (!count($this->filters)) {
             $this->filters = [
                 $this->objectManager->create($this->filterTypes[self::CATEGORY_FILTER], ['layer' => $layer]),
             ];
-            $positions = [];
             foreach ($this->filterableAttributes->getList() as $attribute) {
                 $this->filters[] = $this->createAttributeFilter($attribute, $layer);
                 $positions[$attribute->getAttributeCode()] = $attribute->getPosition();
             }
         }
+
         return [
             'filters' => $this->filters,
             'positions' => $positions
